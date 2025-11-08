@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Darts Game</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="lobby">
+            <h1>Multiplayer Darts Game</h1>
+            <p class="subtitle">Play 501 Darts Online with a Friend</p>
+
+            <div class="game-rules">
+                <h3>Game Rules</h3>
+                <ul>
+                    <li>Start with 501 points and count down to exactly 0</li>
+                    <li>Each player gets 3 darts per turn</li>
+                    <li>Must finish on a double to win</li>
+                    <li>Going below 0 or landing on 1 is a "bust" - score returns to start of turn</li>
+                    <li>30 seconds per turn</li>
+                </ul>
+            </div>
+
+            <div class="lobby-actions">
+                <div class="action-card">
+                    <h2>Create New Game</h2>
+                    <input type="text" id="create-name" placeholder="Enter your name" maxlength="20">
+                    <button id="create-btn" class="btn btn-primary">Create Game</button>
+                </div>
+
+                <div class="divider">OR</div>
+
+                <div class="action-card">
+                    <h2>Join Existing Game</h2>
+                    <input type="text" id="join-name" placeholder="Enter your name" maxlength="20">
+                    <input type="text" id="join-code" placeholder="Enter game code" maxlength="20">
+                    <button id="join-btn" class="btn btn-secondary">Join Game</button>
+                </div>
+            </div>
+
+            <div id="waiting-room" class="waiting-room hidden">
+                <h2>Waiting for opponent...</h2>
+                <p class="game-link-label">Share this link with your opponent:</p>
+                <div class="game-link-container">
+                    <input type="text" id="game-link" readonly>
+                    <button id="copy-link-btn" class="btn btn-small">Copy Link</button>
+                </div>
+                <p class="game-code-label">Or share this code: <strong id="game-code"></strong></p>
+                <div class="spinner"></div>
+            </div>
+
+            <div id="error-message" class="error-message hidden"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+</html>

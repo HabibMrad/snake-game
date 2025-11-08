@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darts Game - Play</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>Multiplayer Darts</h1>
+            <div id="connection-status" class="connection-status connected">Connected</div>
+        </div>
+
+        <div class="game-layout">
+            <!-- Left Panel - Scoreboard -->
+            <div class="left-panel">
+                <div class="scoreboard">
+                    <h2>Scores</h2>
+                    <div id="player-scores" class="player-scores">
+                        <!-- Player scores will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="turn-info">
+                    <div class="current-turn">
+                        <h3>Current Turn</h3>
+                        <p id="turn-player">-</p>
+                    </div>
+                    <div class="timer">
+                        <h3>Time Remaining</h3>
+                        <div id="timer-display" class="timer-display">30</div>
+                    </div>
+                    <div class="darts-remaining">
+                        <h3>Darts Left</h3>
+                        <div id="darts-display" class="darts-display">
+                            <span class="dart-icon">🎯</span>
+                            <span class="dart-icon">🎯</span>
+                            <span class="dart-icon">🎯</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-history">
+                    <h3>Recent Throws</h3>
+                    <div id="history-list" class="history-list">
+                        <!-- History will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Panel - Dartboard -->
+            <div class="center-panel">
+                <div class="dartboard-container">
+                    <canvas id="dartboard" width="600" height="600"></canvas>
+                    <div id="click-feedback" class="click-feedback hidden"></div>
+                </div>
+                <div id="throw-info" class="throw-info hidden"></div>
+            </div>
+
+            <!-- Right Panel - Game Info -->
+            <div class="right-panel">
+                <div id="game-status" class="game-status">
+                    <h3>Game Status</h3>
+                    <p id="status-text">Waiting for game to start...</p>
+                </div>
+
+                <div id="winner-display" class="winner-display hidden">
+                    <h2>Game Over!</h2>
+                    <p id="winner-text"></p>
+                    <button id="play-again-btn" class="btn btn-primary">Play Again</button>
+                </div>
+
+                <div class="game-actions">
+                    <button id="leave-game-btn" class="btn btn-danger">Leave Game</button>
+                </div>
+
+                <div class="game-info">
+                    <h3>How to Play</h3>
+                    <ul>
+                        <li>Click on the dartboard to throw</li>
+                        <li>Click center for bullseye (50 or 25)</li>
+                        <li>Outer ring = Double</li>
+                        <li>Middle ring = Triple</li>
+                        <li>Must finish on a double</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="join-modal" class="modal">
+        <div class="modal-content">
+            <h2>Join Game</h2>
+            <p>Enter your name to join:</p>
+            <input type="text" id="modal-name" placeholder="Your name" maxlength="20">
+            <button id="modal-join-btn" class="btn btn-primary">Join Game</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="/static/dartboard.js"></script>
+    <script src="/static/game.js"></script>
+</body>
+</html>
