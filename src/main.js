@@ -7,6 +7,16 @@ import {
   tick
 } from './snakeLogic.js'
 
+const HIGH_SCORE_KEY = 'snake-high-score'
+
+function loadHighScore() {
+  return parseInt(localStorage.getItem(HIGH_SCORE_KEY) || '0', 10)
+}
+
+function saveHighScore(score) {
+  localStorage.setItem(HIGH_SCORE_KEY, String(score))
+}
+
 const app = document.querySelector('#app')
 
 app.innerHTML = `
@@ -14,6 +24,7 @@ app.innerHTML = `
     <header class="hud">
       <h1>Snake</h1>
       <p>Score: <span id="score">0</span></p>
+      <p>Best: <span id="high-score">0</span></p>
     </header>
     <section id="grid" class="grid" aria-label="Snake game grid"></section>
     <div class="status">
@@ -36,6 +47,7 @@ app.innerHTML = `
 
 const grid = document.querySelector('#grid')
 const scoreText = document.querySelector('#score')
+const highScoreText = document.querySelector('#high-score')
 const statusText = document.querySelector('#status')
 const pauseBtn = document.querySelector('#pause-btn')
 const restartBtn = document.querySelector('#restart-btn')
@@ -57,6 +69,7 @@ let state = createInitialState()
 let started = false
 let paused = false
 let timer = null
+let highScore = loadHighScore()
 
 function getCell(x, y) {
   return cells[y * GRID_SIZE + x]
@@ -84,6 +97,12 @@ function render() {
   }
 
   scoreText.textContent = String(state.score)
+
+  if (state.score > highScore) {
+    highScore = state.score
+    saveHighScore(highScore)
+  }
+  highScoreText.textContent = String(highScore)
 
   if (state.gameOver) {
     statusText.textContent = 'Game over. Press Restart.'
@@ -163,4 +182,5 @@ pauseBtn.addEventListener('click', () => {
 
 restartBtn.addEventListener('click', restart)
 
+highScoreText.textContent = String(highScore)
 restart()
